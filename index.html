@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Legoize</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <h1>Lego<span>ize</span></h1>
+          <p>Photo → bricks. Deterministic color match, no generative AI.</p>
+        </div>
+
+        <div
+          class="dropzone"
+          id="dropzone"
+          tabindex="0"
+          role="button"
+          aria-label="Upload an image"
+        >
+          <input id="file" type="file" accept="image/*" hidden />
+          <strong>Drop a photo</strong>
+          <span>or click to browse</span>
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <label for="size">Grid width</label>
+            <span id="sizeLabel">24</span>
+          </div>
+          <input id="size" type="range" min="8" max="48" value="24" />
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <label for="depth">Roundness / depth</label>
+            <span id="depthLabel">10</span>
+          </div>
+          <input id="depth" type="range" min="3" max="16" value="10" />
+        </div>
+
+        <label class="check">
+          <input id="knockBg" type="checkbox" checked />
+          Knock out background
+        </label>
+
+        <div class="stats" id="stats" hidden>
+          <div><em id="dim">—</em> silhouette</div>
+          <div><em id="brickCount">—</em> solid bricks</div>
+        </div>
+
+        <section class="block" id="partsBlock" hidden>
+          <h2>Parts list</h2>
+          <ul class="parts" id="parts"></ul>
+        </section>
+
+        <section class="block" id="stepsBlock" hidden>
+          <h2>Build steps</h2>
+          <p class="step-help">Solid bricks only — each step adds the next level from the ground up.</p>
+          <div class="step-nav">
+            <button type="button" id="prevStep" disabled>Prev</button>
+            <span id="stepLabel">Step 1</span>
+            <button type="button" id="nextStep" disabled>Next</button>
+          </div>
+          <ul class="parts compact" id="stepParts"></ul>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <section class="view">
+          <header>
+            <h2>Mosaic</h2>
+            <span class="hint">Nearest LEGO color per cell</span>
+          </header>
+          <div class="view-body" id="mosaicBody">
+            <p class="empty" id="hint2d">Upload an image to begin.</p>
+            <canvas id="preview2d" hidden></canvas>
+          </div>
+        </section>
+        <section class="view">
+          <header>
+            <h2>3D model</h2>
+            <span class="hint">Drag to orbit · scroll to zoom</span>
+          </header>
+          <div class="view-body" id="viewportBody">
+            <p class="empty" id="hint3d">Rounded solid figure — thick in the middle, thin at the edges.</p>
+            <canvas id="viewport" hidden></canvas>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
